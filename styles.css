@@ -1,0 +1,351 @@
+:root{
+  --mint: #40d79a;    /* verde menta */
+  --gray: #9d9d9d;    /* gris */
+  --bg: #f3f3f3;      /* fondo suave */
+  --page-max: 1100px;
+  --accent-dark: #2a9a6d;
+  --text: #222;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: 'Montserrat', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+
+/* NAV */
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  max-width:var(--page-max);
+  margin:0 auto;
+}
+.logo{
+  font-weight:700;
+  letter-spacing:1px;
+}
+.nav-links{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  gap:16px;
+}
+.nav a{ text-decoration:none; color:var(--text); font-weight:600;}
+.nav-toggle{display:none; background:transparent; border:none; font-size:20px;}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:18px 16px 40px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.95));
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.hero-content{max-width:900px; margin:0 auto; padding:10px}
+.name-script{
+  font-family:'Great Vibes', cursive;
+  font-size:64px;
+  margin:8px 0 6px;
+  color:var(--text);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+}
+.avatar{
+  width:340px;
+  height:340px;
+  margin:12px auto;
+  border-radius:50%;
+  padding:0px;
+  border:8px solid var(--mint);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+.avatar img{width:150%; height:120%; object-fit:cover; display:block}
+
+.intro{
+  font-style:italic;
+  max-width:880px;
+  margin:16px auto;
+  font-size:20px;
+  color:#222;
+}
+
+/* BUTTON */
+.btn-primary{
+  display:inline-block;
+  background:var(--mint);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:700;
+  margin-top:10px;
+  box-shadow:0 6px 18px rgba(64,215,154,0.18);
+}
+
+/* WhatsApp button uses same primary look but slightly adjusts spacing for the icon */
+.btn-whatsapp svg{vertical-align:middle}
+.btn-whatsapp{display:inline-flex; align-items:center}
+
+/* Estilos para los botones RSVP: lado a lado en escritorio, apilados en móvil */
+.rsvp-buttons{display:flex; gap:12px; justify-content:center; margin-top:12px}
+.rsvp-buttons .btn-primary{min-width:160px}
+@media (max-width:520px){
+  .rsvp-buttons{flex-direction:column; align-items:center}
+  .rsvp-buttons .btn-primary{width:100%; max-width:320px}
+}
+
+/* MAIN LAYOUT */
+.container{max-width:var(--page-max); margin:28px auto; padding:0 16px}
+.card{background:#fff; border-radius:12px; padding:20px; margin-bottom:20px; box-shadow:0 8px 24px rgba(15,15,15,0.03)}
+.section h2{margin-top:0; font-size:22px; color:var(--accent-dark)}
+
+/* VIDEO */
+.video-wrap{
+  display:flex;
+  justify-content:center;
+  /* Usar el tono mint del sitio en lugar del gris suave */
+  background: linear-gradient(135deg, rgba(64,215,154,0.12), rgba(64,215,154,0.04));
+  padding:28px 18px;
+  border-radius:18px;
+  margin:20px 0;
+}
+.video-frame{
+  position:relative;
+  width:100%;
+  max-width:540px; /* límite razonable de ancho para formato vertical */
+  aspect-ratio: 9 / 16; /* forzar orientación vertical (portrait) */
+  /* limitar la altura relativa a la ventana para evitar scroll en pantallas pequeñas */
+  max-height:75vh;
+  overflow:hidden;
+  border-radius:14px;
+  box-shadow:0 30px 80px rgba(64,215,154,0.14);
+  border:4px solid var(--mint);
+  background:#000; /* fondo negro para letterbox cuando usamos contain */
+}
+
+/* Ajustes para pantallas pequeñas: reducir aún más la altura para que quepa en móviles */
+@media (max-width: 420px) {
+  .video-frame{
+    max-height:60vh; /* menos altura en móviles */
+    max-width:100%;
+  }
+}
+.video-frame video{
+  width:100%;
+  height:100%;
+  /* llenar todo el cuadro vertical sin barras (puede recortar los lados) */
+  object-fit:cover;
+  object-position:center center;
+  background:transparent;
+  display:block;
+}
+.video-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.18));
+  border-radius:14px;
+  cursor:pointer;
+  transition:opacity .25s ease, visibility .25s ease;
+  border:none;
+}
+.video-overlay.hidden{opacity:0; visibility:hidden; pointer-events:none}
+.video-overlay .play{
+  width:0; height:0;
+  border-left:36px solid var(--mint);
+  border-top:22px solid transparent;
+  border-bottom:22px solid transparent;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,0.25));
+}
+.video-overlay:focus{outline:2px solid rgba(64,215,154,0.3)}
+
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  gap:12px;
+  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  /* fondo suave en tono mint para que la sección destaque similar al video */
+  padding:14px;
+  border-radius:12px;
+  background: linear-gradient(135deg, rgba(64,215,154,0.06), rgba(64,215,154,0.02));
+}
+.gallery-item{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:10px;
+  cursor:pointer;
+  transition:transform .22s ease, box-shadow .22s ease, transform .22s ease;
+  /* borde mint en lugar de blanco para que combine con el video y la circunferencia */
+  border:4px solid var(--mint);
+  box-shadow: 0 12px 30px rgba(64,215,154,0.16);
+}
+.gallery-item:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow: 0 28px 60px rgba(64,215,154,0.26);
+}
+
+/* Destacar la primera imagen con sombra/halo un poco más fuerte */
+.gallery-item:first-child{
+  box-shadow: 0 32px 72px rgba(64,215,154,0.28);
+  transform:translateY(-2px);
+}
+
+/* ESTILOS PARA 'LUGAR Y COLORES RESERVADOS' */
+.reserved-section .venue p{margin:6px 0; font-size:15px}
+.reserved-section h3{margin-top:12px}
+.color-swatches{display:flex; gap:18px; margin:10px 0 8px; align-items:center}
+.color-swatches .swatch{width:48px; height:48px; border-radius:999px; border:4px solid rgba(0,0,0,0.06); box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+.color-swatches .swatch.color-mint{background:var(--mint); border-color:var(--mint); box-shadow:0 18px 48px rgba(64,215,154,0.18)}
+.color-swatches .swatch.color-dark{background:var(--gray); border-color:rgba(0,0,0,0.06); box-shadow:0 10px 24px rgba(0,0,0,0.06)}
+.color-swatches .swatch.color-acc{background:#ffffff; border-color:rgba(0,0,0,0.06); box-shadow:0 10px 24px rgba(0,0,0,0.06)}
+.color-swatch-figure{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0}
+.color-swatch-label{font-size:13px;color:var(--text);margin-top:4px}
+.reserved-section .muted{margin-top:6px}
+
+/* variante más alta para la primera/foto destacada si quieres */
+.gallery-item.feature{
+  height:200px;
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.7);
+  z-index:60;
+  padding:20px;
+  visibility:hidden;
+  opacity:0;
+  transition:opacity .25s ease, visibility .25s;
+}
+.lightbox.show{visibility:visible; opacity:1}
+.lightbox img{max-width:90%; max-height:80%; border-radius:8px}
+.close-lightbox{
+  position:absolute;
+  right:18px;
+  top:18px;
+  background:#fff;
+  border-radius:6px;
+  border:none;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+/* COUNTDOWN */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:12px 0;
+}
+.countdown > div{
+  background:linear-gradient(180deg, #fff, #fbfbfb);
+  padding:14px 20px;
+  border-radius:12px;
+  min-width:100px;
+  text-align:center;
+  /* borde y halo mint para destacar, similar al video y la galería */
+  border:4px solid var(--mint);
+  box-shadow: 0 18px 50px rgba(64,215,154,0.12), 0 6px 18px rgba(0,0,0,0.04);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.countdown > div:hover{
+  transform:translateY(-6px);
+  box-shadow: 0 28px 70px rgba(64,215,154,0.18), 0 8px 22px rgba(0,0,0,0.05);
+}
+.countdown span{font-size:28px; display:block; font-weight:700; color:var(--accent-dark)}
+.countdown small{display:block; font-size:12px; color:var(--gray)}
+
+/* PHRASES */
+.phrases blockquote{
+  font-family:'Great Vibes', cursive;
+  font-size:28px;
+  margin:8px 0;
+  color:#333;
+  text-align:center;
+}
+
+/* Controles de frases (anterior / siguiente) */
+.phrase-controls{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:8px;
+}
+.phrase-controls button{
+  background:transparent;
+  border:2px solid rgba(64,215,154,0.14);
+  color:var(--accent-dark);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .18s ease;
+  min-width:110px;
+  box-shadow:0 8px 20px rgba(64,215,154,0.06);
+}
+.phrase-controls button:hover{
+  background:var(--mint);
+  color:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(64,215,154,0.18);
+  border-color:var(--mint);
+}
+.phrase-controls button:active{transform:translateY(-1px)}
+.phrase-controls button:focus{outline:3px solid rgba(64,215,154,0.18)}
+
+/* RSVP */
+.rsvp-form input, .rsvp-form select, .rsvp-form textarea{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #e6e6e6;
+  border-radius:8px;
+  font-size:14px;
+  margin-bottom:10px;
+}
+.form-row{display:flex; gap:10px; flex-wrap:wrap}
+.form-row input[type="text"]{flex:1}
+.form-row select{flex:1}
+.form-actions{text-align:right}
+.rsvp-thanks{text-align:center}
+
+/* GIFTS */
+.gifts{margin:12px 0 0; padding-left:18px}
+
+/* FOOTER */
+.footer{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:14px 18px; border-radius:10px; margin-bottom:40px}
+.palette{display:flex; gap:8px}
+.swatch{width:36px; height:36px; border-radius:999px; box-shadow:0 6px 16px rgba(0,0,0,0.06)}
+
+/* Helpers */
+.muted{color:#666; font-size:14px}
+
+/* RESPONSIVE */
+@media (max-width:800px){
+  .name-script{font-size:44px}
+  .avatar{width:180px; height:180px}
+  .nav-links{display:none; position:absolute; right:16px; top:64px; background:#fff; padding:10px; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.08)}
+  .nav-toggle{display:block}
+  .nav-links.show{display:flex; flex-direction:column; gap:8px}
+}
